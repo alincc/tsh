@@ -10,9 +10,9 @@ interface Props {
 }
 
 const ProductItem: FC<Props> = ({ product }: Props) => {
-  const [id, setId] = useState<number | void>();
-  const { data: details, isLoading, isError } = useProductDetailsQuery(id, { skip: !id });
   const [open, setOpen] = useState(false);
+  const [id, setId] = useState<number | void>();
+  const { data: details, isLoading } = useProductDetailsQuery(id, { skip: !id });
 
   const handleClickOpen = (id: number) => {
     setId(id);

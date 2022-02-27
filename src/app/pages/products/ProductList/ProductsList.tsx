@@ -42,7 +42,7 @@ export const ProductsList: FC = () => {
 
   return (
     <>
-      <Grid container rowSpacing={3} columnSpacing={4}>
+      <Grid container rowSpacing={4} columnSpacing={3}>
         {products.items.length > 0 && products.items.map((product) => <ProductItem key={product.id} product={product} />)}
       </Grid>
       <Box my={7} sx={{ display: 'flex', justifyContent: 'center' }}>
