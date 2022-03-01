@@ -5,7 +5,7 @@ import { FC } from 'react';
 const EmptyProducts: FC = () => {
   return (
     <>
-      <Box sx={{ marginBottom: '24px' }}>
+      <Box sx={{ mb: 3 }}>
         <BagSVG />
       </Box>
       <Typography variant="h3" gutterBottom>

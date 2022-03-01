@@ -2,16 +2,19 @@
 
 import { NavigationMenu } from '../../pages/Navigation';
 
-context('HomePage should', () => {
+describe('HomePage should', () => {
   beforeEach(() => {
     cy.visit(Cypress.env().baseUrl);
-  });
-
-  it('Displays products page', () => {
-    cy.clearSession();
-    cy.location().should(loc => {
+    cy.window().then((win) => {
+      win.sessionStorage.clear();
+    });
+    cy.location().should((loc) => {
       expect(loc.href).to.eq(NavigationMenu.homeLink);
     });
-    cy.contains('Products page');
+  });
+
+  it('display products details', () => {
+    // expect(cy.get(DETAILS_BUTTON).contains('Show details') || cy.get(DETAILS_BUTTON).contains('Unavailable'));
+    cy.get('.MuiGrid-root.MuiGrid-item');
   });
 });

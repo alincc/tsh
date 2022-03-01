@@ -1,9 +1,9 @@
-import { Button, Card, CardActions, CardContent, CardMedia, Grid, Rating, Typography } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Grid, Rating, Typography } from '@mui/material';
 import { Product } from 'models/product.model';
 import { FC, useState } from 'react';
 import { useProductDetailsQuery } from 'services/products/productsApi';
 import ProductDialog from '../ProductDialog/ProductDialog';
-import ProductPromo from '../ProductPromo/ProductPromo';
+import { cardContainer, promo } from './ProductItemStyle';
 
 interface Props {
   product: Product;
@@ -23,9 +23,9 @@ const ProductItem: FC<Props> = ({ product }: Props) => {
 
   return (
     <Grid item lg={3} sm={6} xs={12}>
-      <Card sx={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
+      <Card sx={cardContainer}>
         <CardMedia component="img" alt={product.name} height="170" image={product.image} />
-        {product.promo && <ProductPromo />}
+        {product.promo && <Box sx={promo}>Promo</Box>}
         <CardContent sx={{ flex: 2 }}>
           <Typography gutterBottom variant="h3" component="div">
             {product.name}

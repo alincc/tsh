@@ -39,7 +39,7 @@ const SearchForm: FC = () => {
           }}
         />
       </Grid>
-      <Grid item lg={4} sm={4} xs={12} sx={{ ...center(Axis.X, Direction.ROW) }}>
+      <Grid item lg={4} sm={4} xs={12} sx={center(Axis.X, Direction.ROW)}>
         <FormControlLabel control={<Checkbox name="active" onChange={onActiveChange} />} label="Active" sx={{ mr: 4 }} />
         <FormControlLabel control={<Checkbox name="promo" onChange={onPromoChange} />} label="Promo" sx={{ mr: 4 }} />
       </Grid>

@@ -3,7 +3,8 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { Axis, center, Direction } from 'styles/mixins/Center';
-import SearchForm from './SearchForm';
+import SearchForm from '../SearchForm/SearchForm';
+import { lgNavContentContainer, lgNavWrapper, smNavContentContainer, smNavRow, smNavWrapper } from './NavbarStyle';
 
 export const Navbar: FC = () => {
   const theme = useTheme();
@@ -11,25 +12,16 @@ export const Navbar: FC = () => {
 
   if (!matches) {
     return (
-      <Box
-        pt={6}
-        pb={3}
-        mb={7}
-        sx={{
-          backgroundColor: '#fff',
-          ...center(Axis.XY, Direction.ROW),
-        }}
-      >
-        <Container sx={{ ...center(Axis.XY, Direction.COLUMN), alignItems: 'space-between', marginY: '4px' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }} mb={4}>
+      <Box sx={smNavWrapper}>
+        <Container sx={smNavContentContainer}>
+          <Box sx={smNavRow} mb={4}>
             <Typography variant="h2">
               <Link to={AppRoute.HOME}>join.tsh.io</Link>
             </Typography>
-            <Button variant="outlined" sx={{ width: '88px' }} href="/login">
+            <Button variant="outlined" href="/login">
               Login
             </Button>
           </Box>
-
           <SearchForm />
         </Container>
       </Box>
@@ -37,22 +29,15 @@ export const Navbar: FC = () => {
   }
 
   return (
-    <Box
-      py={6}
-      mb={7}
-      sx={{
-        backgroundColor: '#fff',
-        ...center(Axis.XY, Direction.ROW),
-      }}
-    >
-      <Container sx={{ ...center(Axis.XY, Direction.ROW), justifyContent: 'space-between' }}>
+    <Box sx={lgNavWrapper}>
+      <Container sx={lgNavContentContainer}>
         <Box sx={{ ...center(Axis.Y, Direction.ROW) }}>
           <Typography variant="h2" sx={{ mr: '105px' }}>
             <Link to={AppRoute.HOME}>join.tsh.io</Link>
           </Typography>
           <SearchForm />
         </Box>
-        <Button variant="outlined" sx={{ width: '88px', ml: '56px' }} href="/login">
+        <Button variant="outlined" sx={{ ml: 7 }} href="/login">
           Login
         </Button>
       </Container>

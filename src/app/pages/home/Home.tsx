@@ -1,5 +1,5 @@
 import { Container } from '@mui/material';
-import { Navbar } from 'app/components/Navbar';
+import { Navbar } from 'app/components/Navbar/Navbar';
 import { FC } from 'react';
 import { ProductsList } from '../products/ProductList/ProductsList';
 

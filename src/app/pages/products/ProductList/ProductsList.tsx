@@ -1,12 +1,13 @@
 import { CircularProgress, Grid, Pagination, useMediaQuery, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
-import UtilsContainer from 'app/components/UtilsContainer';
 import { ChangeEvent, FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/redux-hooks';
 import { useProductListQuery } from 'services/products/productsApi';
 import { selectQuery, setLimit, setPage } from 'services/products/productsQuerySlice';
+import { Axis, center } from 'styles/mixins/Center';
 import EmptyProducts from '../EmptyProducts/EmptyProducts';
 import ProductItem from '../ProductItem/ProductItem';
+import { utilsContainer } from './ProductListStyle';
 
 export const ProductsList: FC = () => {
   const theme = useTheme();
@@ -26,17 +27,17 @@ export const ProductsList: FC = () => {
 
   if (isLoading) {
     return (
-      <UtilsContainer bgColor="transparent">
+      <Box sx={utilsContainer('transparent')}>
         <CircularProgress />
-      </UtilsContainer>
+      </Box>
     );
   }
 
   if (!products?.items || products?.meta.totalItems === 0 || isError) {
     return (
-      <UtilsContainer bgColor="#fff">
+      <Box sx={utilsContainer('#fff')}>
         <EmptyProducts />
-      </UtilsContainer>
+      </Box>
     );
   }
 
@@ -45,7 +46,7 @@ export const ProductsList: FC = () => {
       <Grid container rowSpacing={4} columnSpacing={3}>
         {products.items.length > 0 && products.items.map((product) => <ProductItem key={product.id} product={product} />)}
       </Grid>
-      <Box my={7} sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Box my={7} sx={center(Axis.X)}>
         <Pagination
           count={products?.meta.totalPages}
           boundaryCount={3}
