@@ -1,11 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ProductsQuery } from 'models/product-query.model';
-import { Product } from 'models/product.model';
-import { ListResponse } from '../../models/list-response.model';
+import { Product } from 'models/product/product.model';
+import { prepareHeaders } from 'services/prepareHeaders';
+import { ListResponse, ProductsQuery } from './products.model';
 
-export const productApiSlice = createApi({
-  reducerPath: 'productApiSlice',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://join-tsh-api-staging.herokuapp.com/' }),
+export const productApi = createApi({
+  reducerPath: 'productApi',
+  baseQuery: fetchBaseQuery({
+    baseUrl: process.env.REACT_APP_API_URL,
+    prepareHeaders: prepareHeaders,
+  }),
   endpoints: (builder) => ({
     productList: builder.query<ListResponse<Product>, ProductsQuery>({
       query: ({ searchValue, limit, page, promo, active }: ProductsQuery) => {
@@ -23,4 +26,4 @@ export const productApiSlice = createApi({
   }),
 });
 
-export const { useProductListQuery, useProductDetailsQuery } = productApiSlice;
+export const { useProductListQuery, useProductDetailsQuery } = productApi;

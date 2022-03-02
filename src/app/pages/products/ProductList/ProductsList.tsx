@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 import { ChangeEvent, FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/redux-hooks';
 import { useProductListQuery } from 'services/products/productsApi';
-import { selectQuery, setLimit, setPage } from 'services/products/productsQuerySlice';
+import { currentPage, limit, selectQuery } from 'services/products/productsQuerySlice';
 import { Axis, center } from 'styles/mixins/Center';
 import EmptyProducts from '../EmptyProducts/EmptyProducts';
 import ProductItem from '../ProductItem/ProductItem';
@@ -18,11 +18,11 @@ export const ProductsList: FC = () => {
   const { data: products, isLoading, isError } = useProductListQuery(productsQuery);
 
   const handlePageChange = (_: ChangeEvent<unknown>, value: number) => {
-    dispatch(setPage(value));
+    dispatch(currentPage(value));
   };
 
   useEffect(() => {
-    matches ? dispatch(setLimit(8)) : dispatch(setLimit(4));
+    matches ? dispatch(limit(8)) : dispatch(limit(4));
   }, [matches]);
 
   if (isLoading) {

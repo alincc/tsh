@@ -1,16 +1,10 @@
 import { Box, CardMedia, Dialog, DialogContent, DialogContentText, DialogTitle, IconButton, Slide, SvgIcon } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import { ReactComponent as CloseSVG } from 'images/svg/Close.svg';
-import { Product } from 'models/product.model';
-import { forwardRef, ReactElement, Ref } from 'react';
+import { FC, forwardRef, ReactElement, Ref } from 'react';
 import { promo } from '../ProductItem/ProductItemStyle';
+import { ProductDialogProps } from './ProductDialog.model';
 import { dialogCloseButton, dialogImg } from './ProductDialogStyle';
-
-interface Props {
-  product: Product;
-  open: boolean;
-  onClose: () => void;
-}
 
 type TransitionProp = TransitionProps & { children: ReactElement<any, any> };
 
@@ -18,9 +12,9 @@ const Transition = forwardRef(function Transition(props: TransitionProp, ref: Re
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const ProductDialog = ({ product, open, onClose }: Props) => {
+const ProductDialog: FC<ProductDialogProps> = ({ product, open, onClose }) => {
   return (
-    <Dialog open={open} TransitionComponent={Transition} keepMounted onClose={onClose} aria-describedby="product-details">
+    <Dialog open={open} TransitionComponent={Transition} keepMounted onClose={onClose}>
       <CardMedia component="img" alt={product?.name} sx={dialogImg} image={product.image} />
       {product.promo && <Box sx={promo}>Promo</Box>}
       <DialogTitle>

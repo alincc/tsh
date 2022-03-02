@@ -2,22 +2,22 @@ import { Checkbox, FormControlLabel, Grid, InputAdornment, SvgIcon, TextField } 
 import { ReactComponent as SearchSVG } from 'images/svg/Search.svg';
 import { ChangeEvent, FC } from 'react';
 import { useAppDispatch } from 'redux/redux-hooks';
-import { setActive, setPromo, setSearchValue } from 'services/products/productsQuerySlice';
+import { isActive, isPromo, searchValue } from 'services/products/productsQuerySlice';
 import { Axis, center, Direction } from 'styles/mixins/Center';
 
 const SearchForm: FC = () => {
   const dispatch = useAppDispatch();
 
   const onSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchValue(event.target.value));
+    dispatch(searchValue(event.target.value));
   };
 
   const onActiveChange = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setActive(event.target.checked));
+    dispatch(isActive(event.target.checked));
   };
 
   const onPromoChange = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setPromo(event.target.checked));
+    dispatch(isPromo(event.target.checked));
   };
 
   return (

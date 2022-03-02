@@ -1,15 +1,11 @@
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Grid, Rating, Typography } from '@mui/material';
-import { Product } from 'models/product.model';
 import { FC, useState } from 'react';
 import { useProductDetailsQuery } from 'services/products/productsApi';
 import ProductDialog from '../ProductDialog/ProductDialog';
+import { ProductItemProps } from './ProductItem.model';
 import { cardContainer, promo } from './ProductItemStyle';
 
-interface Props {
-  product: Product;
-}
-
-const ProductItem: FC<Props> = ({ product }: Props) => {
+const ProductItem: FC<ProductItemProps> = ({ product }) => {
   const [open, setOpen] = useState(false);
   const [id, setId] = useState<number | void>();
   const { data: details, isLoading } = useProductDetailsQuery(id, { skip: !id });

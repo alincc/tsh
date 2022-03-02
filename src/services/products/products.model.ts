@@ -18,3 +18,11 @@ export interface ListResponse<T> {
   meta: Meta;
   links: Links;
 }
+
+export interface ProductsQuery {
+  searchValue: string;
+  active: boolean;
+  promo: boolean;
+  limit: number;
+  page: number;
+}

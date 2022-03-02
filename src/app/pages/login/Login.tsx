@@ -1,74 +1,77 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import * as React from 'react';
+import { Box, Button, Grid, Paper, TextField, Typography } from '@mui/material';
+import AlertSnackbar from 'app/components/BasicSnackbar/BasicSnackbar';
+import LoginNavbar from 'app/components/Navbar/LoginNavbar';
+import { FC, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useAppDispatch } from 'redux/redux-hooks';
+import { AppRoute } from 'routing/routing.model';
+import { useLoginMutation } from 'services/auth/authApi';
+import { token } from 'services/auth/authSlice';
+import { LoginFormValues } from './Login.model';
+import { errorMsg } from './login.validators';
+import { imgBackground, loginContainer } from './LoginStyle';
 
-export const Login = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      username: data.get('username'),
-      password: data.get('password'),
-    });
+export const Login: FC<any> = (props) => {
+  const [error, setError] = useState('');
+  const dispatch = useAppDispatch();
+  const [login, { isLoading }] = useLoginMutation();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>({ mode: 'onBlur' });
+
+  const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
+    try {
+      const response = await login(data).unwrap();
+      dispatch(token(response));
+      props.history.push(AppRoute.HOME);
+      setError('');
+    } catch (error: any) {
+      setError(error.data.message);
+    }
   };
 
   return (
     <Grid container component="main" sx={{ height: '100vh' }}>
-      <Grid
-        item
-        xs={false}
-        sm={4}
-        md={7}
-        sx={{
-          backgroundImage: 'url(https://source.unsplash.com/random)',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <Box
-          sx={{
-            my: 8,
-            mx: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Typography variant="h1">Sign in</Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+      <Grid item xs={false} sm={4} md={4} sx={imgBackground} />
+      <Grid item xs={12} sm={8} md={8} component={Paper} elevation={0} square>
+        <Grid item xs={12} sm={12} md={10} sx={loginContainer}>
+          <LoginNavbar />
+          <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ height: '100%' }}>
+            <Typography variant="h1" gutterBottom>
+              Login
+            </Typography>
             <TextField
               sx={{ marginTop: '40px' }}
               label="Username"
               id="username"
-              name="username"
               placeholder="Enter username"
               fullWidth
-              required
+              error={'username' in errors}
+              helperText={errorMsg(errors.username)}
+              {...register('username', { required: true, minLength: 6, maxLength: 15 })}
             />
             <TextField
               sx={{ marginTop: '40px' }}
               margin="normal"
               label="Password"
               id="password"
-              name="password"
               type="password"
               placeholder="Enter password"
               fullWidth
-              required
+              error={'password' in errors}
+              helperText={errorMsg(errors.password)}
+              {...register('password', { required: true, minLength: 6 })}
             />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 14 }} href="/">
-              Log In
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 7 }} disabled={isLoading}>
+              {isLoading ? 'Loading' : 'Log in'}
             </Button>
-            <Box sx={{ mt: 4, color: 'red' }}>Forgot password?</Box>
+
+            {error && <AlertSnackbar>{`Error: ${error}`}</AlertSnackbar>}
+            <Box sx={{ mt: 2 }}>Forgot password?</Box>
           </Box>
-        </Box>
+        </Grid>
       </Grid>
     </Grid>
   );
