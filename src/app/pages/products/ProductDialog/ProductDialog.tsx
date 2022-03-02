@@ -2,9 +2,9 @@ import { Box, CardMedia, Dialog, DialogContent, DialogContentText, DialogTitle, 
 import { TransitionProps } from '@mui/material/transitions';
 import { ReactComponent as CloseSVG } from 'images/svg/Close.svg';
 import { FC, forwardRef, ReactElement, Ref } from 'react';
-import { promo } from '../ProductItem/ProductItemStyle';
+import { promo } from '../ProductItem/ProductItem.style';
 import { ProductDialogProps } from './ProductDialog.model';
-import { dialogCloseButton, dialogImg } from './ProductDialogStyle';
+import { dialogCloseButton, dialogImg } from './ProductDialog.style';
 
 type TransitionProp = TransitionProps & { children: ReactElement<any, any> };
 

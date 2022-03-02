@@ -3,18 +3,15 @@ import AlertSnackbar from 'app/components/AlertSnackbar/AlertSnackbar';
 import LoginNavbar from 'app/components/Navbar/LoginNavbar';
 import { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useAppDispatch } from 'redux/redux-hooks';
 import { AppRoute } from 'routing/routing.model';
 import { useLoginMutation } from 'services/auth/authApi';
-import { token } from 'services/auth/authSlice';
 import { LoginFormValues } from './Login.model';
-import { errorMsg } from './login.validators';
-import { imgBackground, loginContainer } from './LoginStyle';
+import { imgBackground, loginContainer } from './Login.style';
+import { validate } from './Login.validators';
 
 export const Login: FC<any> = (props) => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState('');
-  const dispatch = useAppDispatch();
   const [login, { isLoading }] = useLoginMutation();
   const {
     register,
@@ -24,8 +21,7 @@ export const Login: FC<any> = (props) => {
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
     try {
-      const response = await login(data).unwrap();
-      dispatch(token(response));
+      await login(data).unwrap();
       props.history.push(AppRoute.HOME);
       setError('');
     } catch (error: any) {
@@ -53,7 +49,7 @@ export const Login: FC<any> = (props) => {
               placeholder="Enter username"
               fullWidth
               error={'username' in errors}
-              helperText={errorMsg(errors.username)}
+              helperText={validate(errors.username)}
               {...register('username', { required: true, minLength: 6, maxLength: 15 })}
             />
             <TextField
@@ -65,7 +61,7 @@ export const Login: FC<any> = (props) => {
               placeholder="Enter password"
               fullWidth
               error={'password' in errors}
-              helperText={errorMsg(errors.password)}
+              helperText={validate(errors.password)}
               {...register('password', { required: true, minLength: 6 })}
             />
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 7 }} disabled={isLoading}>

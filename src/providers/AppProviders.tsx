@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { store } from 'redux/store';
 import { tsh } from 'styles/theme/theme';
-import { AppProvidersProps } from './AppProviders.types';
+import { AppProvidersProps } from './AppProviders.model';
 
 export const AppProviders: FC<AppProvidersProps> = ({ children }) => (
   <ThemeProvider theme={tsh}>

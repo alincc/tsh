@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthResponse, AuthState, User } from 'services/auth/auth.model';
+import { AuthState, User } from 'services/auth/auth.model';
 import { RootState } from '../../redux/store';
+import { authApi } from './authApi';
 
 export const initialState: AuthState<User> = {
   token: localStorage.getItem('token'),
@@ -11,10 +12,6 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    token: (state, action: PayloadAction<AuthResponse<User>>) => {
-      localStorage.setItem('token', action.payload.access_token);
-      state.token = action.payload.access_token;
-    },
     user: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
     },
@@ -24,9 +21,15 @@ export const authSlice = createSlice({
       state.token = null;
     },
   },
+  extraReducers: (builder) => {
+    builder.addMatcher(authApi.endpoints.login.matchFulfilled, (state, { payload }) => {
+      state.token = payload.access_token;
+      localStorage.setItem('token', payload.access_token);
+    });
+  },
 });
 
-export const { token, user, onLogout } = authSlice.actions;
+export const { user, onLogout } = authSlice.actions;
 export const getCurrentUser = (state: RootState) => state.auth;
 
 export default authSlice.reducer;

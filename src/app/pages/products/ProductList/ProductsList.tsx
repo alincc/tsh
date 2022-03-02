@@ -7,7 +7,7 @@ import { currentPage, limit, selectQuery } from 'services/products/productsQuery
 import { Axis, center } from 'styles/mixins/Center';
 import EmptyProducts from '../EmptyProducts/EmptyProducts';
 import ProductItem from '../ProductItem/ProductItem';
-import { utilsContainer } from './ProductListStyle';
+import { utilsContainer } from './ProductList.style';
 
 export const ProductsList: FC = () => {
   const theme = useTheme();

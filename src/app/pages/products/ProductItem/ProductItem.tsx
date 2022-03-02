@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import { useProductDetailsQuery } from 'services/products/productsApi';
 import ProductDialog from '../ProductDialog/ProductDialog';
 import { ProductItemProps } from './ProductItem.model';
-import { cardContainer, promo } from './ProductItemStyle';
+import { cardContainer, promo } from './ProductItem.style';
 
 const ProductItem: FC<ProductItemProps> = ({ product }) => {
   const [open, setOpen] = useState(false);
