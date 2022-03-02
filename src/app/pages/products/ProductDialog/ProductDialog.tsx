@@ -1,4 +1,15 @@
-import { Box, CardMedia, Dialog, DialogContent, DialogContentText, DialogTitle, IconButton, Slide, SvgIcon } from '@mui/material';
+import {
+  Box,
+  CardMedia,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  IconButton,
+  Slide,
+  SvgIcon,
+  useTheme,
+} from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import { ReactComponent as CloseSVG } from 'images/svg/Close.svg';
 import { FC, forwardRef, ReactElement, Ref } from 'react';
@@ -13,9 +24,10 @@ const Transition = forwardRef(function Transition(props: TransitionProp, ref: Re
 });
 
 const ProductDialog: FC<ProductDialogProps> = ({ product, open, onClose }) => {
+  const theme = useTheme();
   return (
-    <Dialog open={open} TransitionComponent={Transition} keepMounted onClose={onClose}>
-      <CardMedia component="img" alt={product?.name} sx={dialogImg} image={product.image} />
+    <Dialog id="productDialog" open={open} TransitionComponent={Transition} keepMounted onClose={onClose}>
+      <CardMedia component="img" alt={product?.name} sx={dialogImg(theme)} image={product.image} />
       {product.promo && <Box sx={promo}>Promo</Box>}
       <DialogTitle>
         <IconButton aria-label="close" onClick={onClose} sx={dialogCloseButton}>

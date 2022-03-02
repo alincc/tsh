@@ -9,7 +9,7 @@ import { LoginFormValues } from './Login.model';
 import { imgBackground, loginContainer } from './Login.style';
 import { validate } from './Login.validators';
 
-export const Login: FC<any> = (props) => {
+export const Login: FC<any> = ({ history }) => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState('');
   const [login, { isLoading }] = useLoginMutation();
@@ -22,7 +22,7 @@ export const Login: FC<any> = (props) => {
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
     try {
       await login(data).unwrap();
-      props.history.push(AppRoute.HOME);
+      history.push(AppRoute.HOME);
       setError('');
     } catch (error: any) {
       if ('data' in error) {
@@ -64,7 +64,7 @@ export const Login: FC<any> = (props) => {
               helperText={validate(errors.password)}
               {...register('password', { required: true, minLength: 6 })}
             />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 7 }} disabled={isLoading}>
+            <Button id="login-submit" type="submit" fullWidth variant="contained" sx={{ mt: 7 }} disabled={isLoading}>
               {isLoading ? 'Loading' : 'Log in'}
             </Button>
 

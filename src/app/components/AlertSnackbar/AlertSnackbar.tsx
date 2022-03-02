@@ -15,6 +15,7 @@ export const AlertSnackbar: FC<AlertSnackbarProps> = ({ children, open, setOpen,
 
   return (
     <Snackbar
+      id="alert-snackbar"
       open={open}
       autoHideDuration={6000}
       onClose={handleClose}

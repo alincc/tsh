@@ -1,8 +1,13 @@
 import { SxProps, Theme } from '@mui/material';
 
-export const dialogImg: SxProps<Theme> = {
-  width: '600px',
-  minHeight: '354px',
+export const dialogImg = (theme: Theme): SxProps<Theme> => {
+  return {
+    width: '600px',
+    minHeight: '354px',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+    },
+  };
 };
 
 export const dialogCloseButton: SxProps<Theme> = {

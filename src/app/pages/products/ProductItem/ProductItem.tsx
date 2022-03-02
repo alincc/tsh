@@ -18,10 +18,14 @@ const ProductItem: FC<ProductItemProps> = ({ product }) => {
   const handleClose = () => setOpen(false);
 
   return (
-    <Grid item lg={3} sm={6} xs={12}>
+    <Grid item lg={3} sm={6} xs={12} className="product">
       <Card sx={cardContainer}>
         <CardMedia component="img" alt={product.name} height="170" image={product.image} />
-        {product.promo && <Box sx={promo}>Promo</Box>}
+        {product.promo && (
+          <Box sx={promo} className="promo">
+            Promo
+          </Box>
+        )}
         <CardContent sx={{ flex: 2 }}>
           <Typography gutterBottom variant="h3" component="div">
             {product.name}
@@ -31,6 +35,7 @@ const ProductItem: FC<ProductItemProps> = ({ product }) => {
         <CardActions>
           <Rating name="read-only" value={product.rating} readOnly />
           <Button
+            id="details"
             variant="contained"
             fullWidth
             sx={{ marginTop: 2 }}

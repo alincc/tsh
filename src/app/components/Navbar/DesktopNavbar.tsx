@@ -1,13 +1,13 @@
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from 'routing/routing.model';
 import { Axis, center, Direction } from 'styles/mixins/Center';
 import SearchForm from '../SearchForm/SearchForm';
-import { NavbarProps } from './Navbar.model';
+import User from '../User/User';
 import { lgNavContentContainer, lgNavWrapper } from './NavbarStyle';
 
-export const DesktopNavbar: FC<NavbarProps> = ({ onLogout }) => {
+export const DesktopNavbar: FC = () => {
   return (
     <Box sx={lgNavWrapper}>
       <Container sx={lgNavContentContainer}>
@@ -17,9 +17,7 @@ export const DesktopNavbar: FC<NavbarProps> = ({ onLogout }) => {
           </Typography>
           <SearchForm />
         </Box>
-        <Button variant="outlined" sx={{ ml: 7 }} href={AppRoute.LOGIN} onClick={onLogout}>
-          Logout
-        </Button>
+        <User />
       </Container>
     </Box>
   );

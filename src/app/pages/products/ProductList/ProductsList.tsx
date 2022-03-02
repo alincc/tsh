@@ -11,7 +11,7 @@ import { utilsContainer } from './ProductList.style';
 
 export const ProductsList: FC = () => {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up('sm'), { noSsr: true });
+  const bigScreen = useMediaQuery(theme.breakpoints.up('sm'), { noSsr: true });
 
   const dispatch = useAppDispatch();
   const productsQuery = useAppSelector(selectQuery);
@@ -22,8 +22,8 @@ export const ProductsList: FC = () => {
   };
 
   useEffect(() => {
-    matches ? dispatch(limit(8)) : dispatch(limit(4));
-  }, [matches]);
+    bigScreen ? dispatch(limit(8)) : dispatch(limit(4));
+  }, [bigScreen]);
 
   if (isLoading) {
     return (

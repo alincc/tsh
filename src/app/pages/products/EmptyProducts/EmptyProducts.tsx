@@ -8,7 +8,7 @@ const EmptyProducts: FC = () => {
       <Box sx={{ mb: 3 }}>
         <BagSVG />
       </Box>
-      <Typography variant="h3" gutterBottom>
+      <Typography id="empty-list-txt" variant="h3" gutterBottom>
         Ooops… It’s empty here
       </Typography>
       <Typography variant="body1">There are no products on the list</Typography>

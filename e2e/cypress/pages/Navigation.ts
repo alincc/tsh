@@ -1,4 +1,4 @@
-import { AppRoute } from '../../../src/routing/AppRoute.enum';
+import { AppRoute } from '../../../src/routing/routing.model';
 
 class Navigation {
   goToHome(): void {
