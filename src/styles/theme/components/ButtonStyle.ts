@@ -9,7 +9,6 @@ export const ButtonStyle = (theme: Theme): Partial<Components> => {
       },
       styleOverrides: {
         root: {
-          height: '38px',
           whiteSpace: 'nowrap',
           '& .MuiTouchRipple-root': {
             display: 'none',
@@ -22,7 +21,11 @@ export const ButtonStyle = (theme: Theme): Partial<Components> => {
         disableElevation: true,
       },
       styleOverrides: {
-        root: { paddingLeft: theme.spacing(3), paddingRight: theme.spacing(3) },
+        root: {
+          paddingLeft: theme.spacing(3),
+          paddingRight: theme.spacing(3),
+          height: '38px',
+        },
         outlined: {
           border: `1px solid ${theme.palette.primary.main}`,
           '&:hover': {

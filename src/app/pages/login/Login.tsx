@@ -1,5 +1,5 @@
 import { Box, Button, Grid, Paper, TextField, Typography } from '@mui/material';
-import AlertSnackbar from 'app/components/BasicSnackbar/BasicSnackbar';
+import AlertSnackbar from 'app/components/AlertSnackbar/AlertSnackbar';
 import LoginNavbar from 'app/components/Navbar/LoginNavbar';
 import { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -12,6 +12,7 @@ import { errorMsg } from './login.validators';
 import { imgBackground, loginContainer } from './LoginStyle';
 
 export const Login: FC<any> = (props) => {
+  const [open, setOpen] = useState(false);
   const [error, setError] = useState('');
   const dispatch = useAppDispatch();
   const [login, { isLoading }] = useLoginMutation();
@@ -28,7 +29,10 @@ export const Login: FC<any> = (props) => {
       props.history.push(AppRoute.HOME);
       setError('');
     } catch (error: any) {
-      setError(error.data.message);
+      if ('data' in error) {
+        setError(error.data.message);
+        setOpen(true);
+      }
     }
   };
 
@@ -68,7 +72,7 @@ export const Login: FC<any> = (props) => {
               {isLoading ? 'Loading' : 'Log in'}
             </Button>
 
-            {error && <AlertSnackbar>{`Error: ${error}`}</AlertSnackbar>}
+            <AlertSnackbar open={open} setOpen={setOpen} severity="error">{`${error}`}</AlertSnackbar>
             <Box sx={{ mt: 2 }}>Forgot password?</Box>
           </Box>
         </Grid>
